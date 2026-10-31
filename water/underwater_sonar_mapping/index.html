@@ -49,15 +49,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../chapter/chap1/chap1/">1. 认识 ROS</a>
 </li>
-<li class="toctree-l1"><a class="reference internal">2. ROS 基础 - ROS 基础</a>
-<ul>
-<li class="toctree-l2"><a class="reference internal" href="../../chapter/chap2/">章节首页</a>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../chap2/ros1_message_time_sync/">ROS Noetic 多传感器话题时间同步</a>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../chap2/ros1_parameter_sine_wave/">ROS Noetic 运行参数热更新（正弦信号）</a>
-</li>
-</ul>
+<li class="toctree-l1"><a class="reference internal" href="../../chapter/chap2/">2. ROS 基础 - ROS 基础</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../chapter/chap3/">3. 机器人系统设计</a>
 </li>
@@ -142,7 +134,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/rviz_plugin/">RVIZ Carla 插件</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ground/mujoco_shooting/">打靶</a>
+<li class="toctree-l1"><a class="reference internal" href="../../ground/mujoco_ball_collect/">搜集小球</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/carla_traffic_sign_recognition/">交通标志识别（Windows 端脚本）</a>
 </li>
@@ -153,8 +145,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../ground/carla_tsr_ros/">交通标志识别 ROS 封装</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/vehicle_pygame_teleop/">车辆键盘遥操作与二维模拟</a>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../robot_tasks/teleop_control/">任务1 - 键盘控制</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/pcl_recorder/">点云地图创建</a>
 </li>
@@ -181,8 +171,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../ground/lidar_autoencoder_repair/">基于 Autoencoder 的雷达数据修复与避障</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/carla_auto_light/">地面载具灯光自动控制</a>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../ground/trajectory_accuracy_eval/">轨迹/里程计精度评估（ATE/RPE）</a>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">空域载具</span></p>
@@ -369,8 +357,7 @@
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/ros2_ws/src
 <span class="nb">cd</span><span class="w"> </span>~/ros2_ws/src
 </code></pre></div></li>
-<li>从 ros2 仓库拷贝模块代码到工作空间：                 <br/>
-("cp -r ~/OpenHUTB/ros2/src/....._mapping ~/ros2_ws/src/"中OPenHUTB是文件夹名，一般克隆ros2不会自带OPenHUTB文件夹，输入改指令时可以去掉"/OpenHUTB"部分)
+<li>从 ros2 仓库拷贝模块代码到工作空间：
 <div class="highlight"><pre><span></span><code>cp<span class="w"> </span>-r<span class="w"> </span>~/OpenHUTB/ros2/src/underwater_sonar_mapping<span class="w"> </span>~/ros2_ws/src/
 <span class="nb">cd</span><span class="w"> </span>~/ros2_ws
 </code></pre></div></li>
@@ -382,7 +369,7 @@
 <div class="highlight"><pre><span></span><code>ros2<span class="w"> </span>launch<span class="w"> </span>underwater_sonar_mapping<span class="w"> </span>main.launch.py
 </code></pre></div>
 5.运行效果（截图）
-<img alt="运行效果" src="../../img/underwater_sonar_3d_mapping_run.png"/></li>
+<img alt="运行效果" src="../../img/capture_4.png"/></li>
 </ol>
 <p>效果说明：节点成功启动，基于模拟声呐数据生成了三维海底地形，并清晰标注了水下沉船/暗礁等障碍物位置，验证了声呐三维测绘与避障感知算法的可行性。</p></div>
 </div>
