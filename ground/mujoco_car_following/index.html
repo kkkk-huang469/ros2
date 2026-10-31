@@ -6,15 +6,15 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="../../img/favicon.ico" rel="shortcut icon"/>
-<title>搜集小球 - 模拟器的 ROS 文档</title>
+<title>双车自动跟车 - 模拟器的 ROS 文档</title>
 <link href="../../css/theme.css" rel="stylesheet"/>
 <link href="../../css/theme_extra.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
 <link href="../../extra.css" rel="stylesheet"/>
 <script>
         // Current page data
-        var mkdocs_page_name = "\u641c\u96c6\u5c0f\u7403";
-        var mkdocs_page_input_path = "ground/mujoco_ball_collect.md";
+        var mkdocs_page_name = "\u53cc\u8f66\u81ea\u52a8\u8ddf\u8f66";
+        var mkdocs_page_input_path = "ground/mujoco_car_following.md";
         var mkdocs_page_url = null;
       </script>
 <!--[if lt IE 9]>
@@ -134,15 +134,23 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../rviz_plugin/">RVIZ Carla 插件</a>
 </li>
-<li class="toctree-l1 current"><a class="reference internal current" href="#">搜集小球</a>
+<li class="toctree-l1 current"><a class="reference internal current" href="#">双车自动跟车</a>
 <ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="#_1">实验简介</a>
+<li class="toctree-l2"><a class="reference internal" href="#_1">简介</a>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#_2">运行环境</a>
+<li class="toctree-l2"><a class="reference internal" href="#_2">演示</a>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#_3">运行步骤</a>
+<li class="toctree-l2"><a class="reference internal" href="#_3">环境依赖</a>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#_4">说明</a>
+<li class="toctree-l2"><a class="reference internal" href="#_4">运行方法</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_5">模块结构</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_6">控制原理</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_7">输出说明</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#_8">设计亮点</a>
 </li>
 </ul>
 </li>
@@ -324,31 +332,66 @@
 <ul class="wy-breadcrumbs">
 <li><a aria-label="Docs" class="icon icon-home" href="../.."></a></li>
 <li class="breadcrumb-item">地面载具</li>
-<li class="breadcrumb-item active">搜集小球</li>
+<li class="breadcrumb-item active">双车自动跟车</li>
 <li class="wy-breadcrumbs-aside">
-<a href="https://github.com/OpenHUTB/ros2/edit/master/docs/ground/mujoco_ball_collect.md"> 编辑页面</a>
+<a href="https://github.com/OpenHUTB/ros2/edit/master/docs/ground/mujoco_car_following.md"> 编辑页面</a>
 </li>
 </ul>
 <hr/>
 </div>
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div class="section" itemprop="articleBody">
-<div><h1 id="mujoco">MuJoCo小车 搜集小球仿真</h1>
-<h2 id="_1">实验简介</h2>
-<p>本实验使用MuJoCo搭建差速四轮小车，在 6×6 m 平面场地内自动搜集 6 个散布小球（4 红 2 蓝）：小车每帧寻找最近的未收集球，差速转向驶近，距离小于 0.35 m 即收入车上绿色收集筐，全部收完自动停车，无需人工干预。</p>
-<h2 id="_2">运行环境</h2>
-<p>Ubuntu20.04 + Python3 + mujoco</p>
-<h2 id="_3">运行步骤</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># 1. 安装依赖</span>
-pip<span class="w"> </span>install<span class="w"> </span>mujoco
-
-<span class="c1"># 2. 运行仿真（源码位于 src/ground/mujoco_ball_collect/main.py）</span>
-python3<span class="w"> </span>src/ground/mujoco_ball_collect/main.py
+<div><h1 id="mujoco">MuJoCo 双车自动跟车</h1>
+<h2 id="_1">简介</h2>
+<p>在 MuJoCo 物理仿真环境中实现<strong>地面双车自动跟车</strong>：前车（蓝色）沿直线大幅变速行驶，后车（橙色）通过读取前车位置计算车间距，自动调整自身速度跟随前车，保持约 1.2 m 的车距。整个过程中两车都不转向、不翻车，仅通过车速调节完成跟车。</p>
+<h2 id="_2">演示</h2>
+<p><img alt="双车自动跟车演示" src="../../img/ground/mujoco_car_following.gif"/></p>
+<h2 id="_3">环境依赖</h2>
+<ul>
+<li>Ubuntu 20.04</li>
+<li>Python 3.8</li>
+<li>MuJoCo 2.3.7（<code>pip install mujoco</code>）</li>
+<li><code>numpy</code></li>
+</ul>
+<h2 id="_4">运行方法</h2>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>main.py
 </code></pre></div>
-<p>运行后弹出 MuJoCo 可视化窗口：小车在场地内自动收集 6 个小球，球逐个弹入车上绿色收集筐，全部收完后小车自动停车。</p>
-<p><img alt="搜集小球仿真动图" src="../../img/ground/mujoco_ball_collect.gif"/></p>
-<h2 id="_4">说明</h2>
-<p>本作业的代码与文档在编写过程中使用了 AI 大模型辅助，本人已核对并确认提交内容，对提交内容负责。</p></div>
+<p>或者通过 ROS 包方式运行：</p>
+<div class="highlight"><pre><span></span><code>roslaunch<span class="w"> </span>mujoco_car_following<span class="w"> </span>main.launch
+</code></pre></div>
+<h2 id="_5">模块结构</h2>
+<div class="highlight"><pre><span></span><code>src/ground/mujoco_car_following/
+├── CMakeLists.txt
+├── package.xml
+├── launch/
+│   └── main.launch
+└── main.py
+</code></pre></div>
+<h2 id="_6">控制原理</h2>
+<ul>
+<li><strong>前车（leader）</strong>：速度按正弦规律大幅变化（2.1 s 一个周期，约 0.05 ~ 1.15 m/s），模拟真实道路上车辆加减速场景。</li>
+<li><strong>后车（follower）</strong>：</li>
+<li>通过 <code>qpos</code> 读取前车 x 坐标和后车 x 坐标，计算车间距 <code>gap</code>；</li>
+<li>控制目标为 <code>前车速度 + 8 × (gap − 1.2)</code>，即以前车速度为<strong>前馈</strong>、以车距误差为<strong>反馈</strong>的比例控制；</li>
+<li>对目标速度做一阶低通滤波（系数 0.003，约 0.67 s 延迟），模拟后车驾驶员反应滞后，产生真实的"追赶—拉开"动态；</li>
+<li>最终左右轮同速输出，后车不转向，只靠调速保距。</li>
+</ul>
+<h2 id="_7">输出说明</h2>
+<p>运行后终端实时打印：</p>
+<div class="highlight"><pre><span></span><code>step=... lead_x=... follow_x=... gap=... lead_ctrl=... f_ctrl=...
+</code></pre></div>
+<ul>
+<li><code>lead_x</code>：前车位置</li>
+<li><code>follow_x</code>：后车位置</li>
+<li><code>gap</code>：车间距（期望 1.2 m，实际稳定在 1.0 ~ 1.3 m 附近）</li>
+<li><code>lead_ctrl</code> / <code>f_ctrl</code>：前车 / 后车轮速指令</li>
+</ul>
+<h2 id="_8">设计亮点</h2>
+<ul>
+<li>双车跟车在仓库中为全新选题（仓库此前仅有单车巡航、无人机编队、视觉追踪等，无地面双车保距跟车模块）；</li>
+<li>控制简单稳定：不涉及转向，物理参数沿用已验证组合（轮摩擦 2.5、执行器力限 ±100），不会翻车、不会追尾；</li>
+<li>加入反应延迟滤波，跟车过程具有真实驾驶的动态感。</li>
+</ul></div>
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
