@@ -134,8 +134,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/rviz_plugin/">RVIZ Carla 插件</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../ground/mujoco_car_following/">双车自动跟车</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/carla_traffic_sign_recognition/">交通标志识别（Windows 端脚本）</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/carla_parking_lot/">停车场场景生成</a>
@@ -171,6 +169,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../ground/lidar_autoencoder_repair/">基于 Autoencoder 的雷达数据修复与避障</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../ground/carla_auto_light/">地面载具灯光自动控制</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ground/mujoco_car_parking/">MuJoCo小车 倒车入库仿真</a>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">空域载具</span></p>
@@ -237,8 +237,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#72-msgpack">7.2 msgpack 长度上限的坑（相机话题无消息）</a>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#73-ci">7.3 本地测试与 CI</a>
-</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#8">8. 效果图</a>
@@ -249,15 +247,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../rooftop_landing/">无人机屋顶降落</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../rooftop_landing_nn/">无人机屋顶降落（学习型落点选择）</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../uav_keyboard_control/">无人机键盘控制</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../uav_ppo_nav/">基于 PPO 的无人机导航避障</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../uav_rl_benchmark/">强化学习对比实验（PPO/SAC/TD3）</a>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../uav_neural_residual_control/">神经残差动力学与学习式轨迹跟踪</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../uav_route_cruise/">基于 PPO 的无人机固定路线巡航</a>
 </li>
@@ -309,9 +303,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../allocnet_teleop/">AllocNet 四旋翼避障规划与键盘遥操作</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../uav_semantic_mapping_nav/">语义分割建图与语义路径规划</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../drone_trajectory_logger/">状态识别与轨迹绘制</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../ground/weather_perception_benchmark/">恶劣雨雾天气下多传感器感知性能对比实验</a>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">水域载具</span></p>
@@ -707,14 +701,6 @@ rosrun<span class="w"> </span>teleop_twist_keyboard<span class="w"> </span>teleo
 <code>max_array_len</code> / <code>max_bin_len</code> / <code>max_str_len</code> / <code>max_map_len</code> 放宽到 <code>2^31-1</code>；
 对不支持这些参数的 msgpack 老版本则探测后跳过。单元测试
 <code>tests/test_sensors_local.py</code> 的 F 组用桩 msgpack 覆盖了"新版注入 / 老版跳过 / 幂等"三条路径。</p>
-<h3 id="73-ci">7.3 本地测试与 CI</h3>
-<p>桥接层的测试不依赖 ROS、仿真器或 GPU，依赖 <code>numpy</code> 和 <code>PyYAML</code>，可以直接在仓库根目录运行：</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>tests/test_frames.py<span class="w">          </span><span class="c1"># 坐标换算 7 项</span>
-python3<span class="w"> </span>tests/test_bridge_local.py<span class="w">    </span><span class="c1"># 桥接状态机与工程文件 31 项</span>
-python3<span class="w"> </span>tests/test_sensors_local.py<span class="w">   </span><span class="c1"># 图像/点云 80 项</span>
-</code></pre></div>
-<p><code>.github/workflows/air_bridge_tests.yml</code> 在 <code>src/air/carlair_ros_bridge/**</code> 或 <code>tests/**</code> 变更时自动执行上述测试，并额外做 <code>py_compile</code> 检查；如果存在 <code>tests/test_imu_local.py</code>（IMU 扩展），也会一起跑。</p>
-<p><img alt="Air bridge tests" src="https://github.com/OpenHUTB/ros2/actions/workflows/air_bridge_tests.yml/badge.svg"/></p>
 <h2 id="8">8. 效果图</h2>
 <p>仿真器鸟瞰场景：</p>
 <p><img alt="" src="../../img/air/carlair_ros_bridge/carlaair_window.png"/></p>

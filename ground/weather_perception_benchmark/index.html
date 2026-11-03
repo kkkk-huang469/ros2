@@ -103,7 +103,7 @@
 </li>
 </ul>
 <p class="caption"><span class="caption-text">地面载具</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../set_up_and_connect_to_carla/">手动控制</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../mnist_digit_control/">MNIST 手写数字视觉感知与机器人运动控制</a>
@@ -133,8 +133,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../ros_scenario_runner/">ROS Scenario Runner</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../rviz_plugin/">RVIZ Carla 插件</a>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../mujoco_car_following/">双车自动跟车</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../carla_traffic_sign_recognition/">交通标志识别（Windows 端脚本）</a>
 </li>
@@ -212,9 +210,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../carla_auto_light/">地面载具灯光自动控制</a>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../mujoco_car_parking/">MuJoCo小车 倒车入库仿真</a>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">空域载具</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal">无人机任务管理与安全状态机</a>
 <ul>
 <li class="toctree-l2"><a class="reference internal" href="../../air/uav_mission_safety_manager/overview/">模块概览</a>
@@ -241,15 +241,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../air/rooftop_landing/">无人机屋顶降落</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../air/rooftop_landing_nn/">无人机屋顶降落（学习型落点选择）</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../../air/uav_keyboard_control/">无人机键盘控制</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../air/uav_ppo_nav/">基于 PPO 的无人机导航避障</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../air/uav_rl_benchmark/">强化学习对比实验（PPO/SAC/TD3）</a>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../air/uav_neural_residual_control/">神经残差动力学与学习式轨迹跟踪</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../air/uav_route_cruise/">基于 PPO 的无人机固定路线巡航</a>
 </li>
@@ -301,9 +297,49 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../air/allocnet_teleop/">AllocNet 四旋翼避障规划与键盘遥操作</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../air/uav_semantic_mapping_nav/">语义分割建图与语义路径规划</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../../air/drone_trajectory_logger/">状态识别与轨迹绘制</a>
+</li>
+<li class="toctree-l1 current"><a class="reference internal current" href="#">恶劣雨雾天气下多传感器感知性能对比实验</a>
+<ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="#1">1. 运行环境</a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#11-carla">1.1 下载并启动 CARLA</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#12-python-310">1.2 安装 Python 3.10 与依赖</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#13">1.3 验证环境连通</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#2">2. 实验原理</a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#21">2.1 天气参数</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#22">2.2 感知质量指标</a>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#3">3. 代码结构</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#4">4. 运行步骤</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#5">5. 实验结果</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#6">6. 结论</a>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#7">7. 图像增强恢复实验</a>
+<ul>
+<li class="toctree-l3"><a class="reference internal" href="#71">7.1 增强方法</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#72">7.2 恢复率定义</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#73">7.3 增强恢复结果</a>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#74">7.4 分析与结论</a>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">水域载具</span></p>
@@ -353,7 +389,7 @@
 <div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
 <ul class="wy-breadcrumbs">
 <li><a aria-label="Docs" class="icon icon-home" href="../.."></a></li>
-<li class="breadcrumb-item">地面载具</li>
+<li class="breadcrumb-item">空域载具</li>
 <li class="breadcrumb-item active">恶劣雨雾天气下多传感器感知性能对比实验</li>
 <li class="wy-breadcrumbs-aside">
 <a href="https://github.com/OpenHUTB/ros2/edit/master/docs/ground/weather_perception_benchmark.md"> 编辑页面</a>
@@ -803,8 +839,8 @@ python<span class="w"> </span>main.py
 </div>
 </div><footer>
 <div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
-<a class="btn btn-neutral float-left" href="../carla_aeb_braking/" title="自动紧急制动（AEB）"><span class="icon icon-circle-arrow-left"></span> 前一页</a>
-<a class="btn btn-neutral float-right" href="../turtlebot3_auto_nav/" title="TurtleBot3 自主导航与避障参数优化">后一页 <span class="icon icon-circle-arrow-right"></span></a>
+<a class="btn btn-neutral float-left" href="../../air/drone_trajectory_logger/" title="状态识别与轨迹绘制"><span class="icon icon-circle-arrow-left"></span> 前一页</a>
+<a class="btn btn-neutral float-right" href="../../water/HoloOcean/" title="水域载具 ROS2 接口">后一页 <span class="icon icon-circle-arrow-right"></span></a>
 </div>
 <hr/>
 <div role="contentinfo">
@@ -821,8 +857,8 @@ python<span class="w"> </span>main.py
 <span>
 <a href="https://github.com/OpenHUTB/ros2" style="color: #fcfcfc">OpenHUTB</a>
 </span>
-<span><a href="../carla_aeb_braking/" style="color: #fcfcfc">« 前一页</a></span>
-<span><a href="../turtlebot3_auto_nav/" style="color: #fcfcfc">后一页 »</a></span>
+<span><a href="../../air/drone_trajectory_logger/" style="color: #fcfcfc">« 前一页</a></span>
+<span><a href="../../water/HoloOcean/" style="color: #fcfcfc">后一页 »</a></span>
 </span>
 </div>
 <script src="../../js/jquery-3.6.0.min.js"></script>

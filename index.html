@@ -150,8 +150,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ground/rviz_plugin/">RVIZ Carla 插件</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ground/mujoco_car_following/">双车自动跟车</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="ground/carla_traffic_sign_recognition/">交通标志识别（Windows 端脚本）</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ground/carla_parking_lot/">停车场场景生成</a>
@@ -188,6 +186,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ground/carla_auto_light/">地面载具灯光自动控制</a>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="ground/mujoco_car_parking/">MuJoCo小车 倒车入库仿真</a>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">空域载具</span></p>
 <ul>
@@ -217,15 +217,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="air/rooftop_landing/">无人机屋顶降落</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="air/rooftop_landing_nn/">无人机屋顶降落（学习型落点选择）</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="air/uav_keyboard_control/">无人机键盘控制</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="air/uav_ppo_nav/">基于 PPO 的无人机导航避障</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="air/uav_rl_benchmark/">强化学习对比实验（PPO/SAC/TD3）</a>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="air/uav_neural_residual_control/">神经残差动力学与学习式轨迹跟踪</a>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="air/uav_route_cruise/">基于 PPO 的无人机固定路线巡航</a>
 </li>
@@ -277,9 +273,9 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="air/allocnet_teleop/">AllocNet 四旋翼避障规划与键盘遥操作</a>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="air/uav_semantic_mapping_nav/">语义分割建图与语义路径规划</a>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="air/drone_trajectory_logger/">状态识别与轨迹绘制</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ground/weather_perception_benchmark/">恶劣雨雾天气下多传感器感知性能对比实验</a>
 </li>
 </ul>
 <p class="caption"><span class="caption-text">水域载具</span></p>
@@ -434,7 +430,6 @@
 <li><a href="ground/twist_to_control/">扭转控制</a></li>
 <li><a href="ground/rqt_plugin/">RQT 插件</a></li>
 <li><a href="ground/pcl_recorder/">点云地图创建</a></li>
-<li><a href="ground/mujoco_car_following/">双车自动跟车</a></li>
 <li>
 <p><a href="ground/carla_traffic_sign_recognition/">Carla 交通标志识别（Windows 脚本）</a> - 基于 YOLOv8 的实时感知与键盘控制</p>
 </li>
@@ -457,6 +452,7 @@
 <li><a href="ground/weather_perception_benchmark/">恶劣雨雾天气下多传感器感知性能对比实验</a></li>
 <li><a href="ground/turtlebot3_auto_nav/">TurtleBot3 仿真自主导航与避障参数优化</a></li>
 <li><a href="ground/image_recorder/">图像录制 ROS 2 封装模块</a></li>
+<li><a href="ground/mujoco_car_parking/">MuJoCo小车倒车入库仿真</a></li>
 <li><a href="ground/cliff_brake/">悬崖边缘紧急制动仿真</a> —— 用 MuJoCo 物理引擎与 ROS 三节点闭环实现车头测距触发的滞回紧急制动，附安全包络定量测试与坠落对照</li>
 <li><a href="ground/lidar_autoencoder_repair/">基于 Autoencoder 的雷达数据修复与避障</a> —— 离线训练自编码器去除传感器噪声，修复后数据送入阈值避障控制链路，展示传感器数据容错层与控制层解耦的设计</li>
 <li><a href="ground/carla_auto_light/">地面载具灯光自动控制</a></li>
@@ -495,7 +491,6 @@
 </li>
 <li><a href="air/carlair_ros_bridge/">无人机与 ROS 的桥接模块</a></li>
 <li><a href="air/rooftop_landing/">无人机屋顶降落</a> —— 用机载 LiDAR 检测屋顶平面，取轮廓的最大内切圆圆心作为降落点，自主飞抵其上方后垂直降落</li>
-<li><a href="air/rooftop_landing_nn/">无人机屋顶降落（学习型落点选择）</a> —— 用点云高度图 + 小 CNN 直接回归屋顶落点；凹形屋顶（U/L/天井）与稀疏点云下比凸包最大内切圆更稳，附三组消融对比</li>
 <li>
 <p><a href="air/uav_keyboard_control/">无人机键盘控制</a></p>
 </li>
@@ -507,9 +502,6 @@
 </li>
 <li>
 <p><a href="air/uav_rl_benchmark/">无人机导航强化学习对比实验（PPO/SAC/TD3）</a></p>
-</li>
-<li>
-<p><a href="air/uav_neural_residual_control/">神经残差动力学与学习式轨迹跟踪</a></p>
 </li>
 <li>
 <p><a href="air/uav_dqn_nav/">基于 DQN 的无人机导航避障</a> —— 与 PPO 同环境同观测，仅替换为 DQN 离散动作算法，用于端到端模型/算法对比</p>
@@ -540,9 +532,6 @@
 </li>
 <li>
 <p><a href="air/openhutb_yolo_mlp_control/">YOLO目标检测与八字轨迹控制</a></p>
-</li>
-<li>
-<p><a href="air/uav_semantic_mapping_nav/">语义分割建图与语义路径规划</a></p>
 </li>
 <li>
 <p><a href="air/allocnet_teleop/">AllocNet 四旋翼避障规划与键盘遥操作</a> —— 在学习型时间分配的避障轨迹规划基础上，补齐键盘航点下发、地图常驻转发与轨迹记录的人机交互层</p>
